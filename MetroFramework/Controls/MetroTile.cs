@@ -39,6 +39,14 @@ namespace MetroFramework.Controls
     {
         #region Interface
 
+        private bool useBorder = true;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public bool UseBorder
+        {
+            get { return useBorder; }
+            set { useBorder = value; }
+        }
+
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public event EventHandler<MetroPaintEventArgs> CustomPaintBackground;
         protected virtual void OnCustomPaintBackground(MetroPaintEventArgs e)
@@ -356,11 +364,14 @@ namespace MetroFramework.Controls
 
             if (isPressed || isHovered || isFocused)
             {
-                using (Pen p = new Pen(borderColor))
+                if (useBorder)
                 {
-                    p.Width = 3;
-                    Rectangle borderRect = new Rectangle(1, 1, Width - 3, Height - 3);
-                    e.Graphics.DrawRectangle(p, borderRect);
+                    using (Pen p = new Pen(borderColor))
+                    {
+                        p.Width = 3;
+                        Rectangle borderRect = new Rectangle(1, 1, Width - 3, Height - 3);
+                        e.Graphics.DrawRectangle(p, borderRect);
+                    }
                 }
             }
 
