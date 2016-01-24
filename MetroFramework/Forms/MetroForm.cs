@@ -77,6 +77,8 @@ namespace MetroFramework.Forms
     {
         #region Interface
 
+        private Size WinButton = new Size(32, 26);
+
         private MetroColorStyle metroStyle = MetroColorStyle.Blue;
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public MetroColorStyle Style
@@ -719,7 +721,7 @@ namespace MetroFramework.Forms
             newButton.Style = Style;
             newButton.Theme = Theme;
             newButton.Tag = button;
-            newButton.Size = new Size(25, 20);
+            newButton.Size = WinButton; //new Size(25, 20);
             newButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             newButton.TabStop = false; //remove the form controls from the tab stop
             newButton.Click += WindowButton_Click;
@@ -764,8 +766,8 @@ namespace MetroFramework.Forms
 
             Dictionary<int, WindowButtons> priorityOrder = new Dictionary<int, WindowButtons>(3) { { 0, WindowButtons.Close }, { 1, WindowButtons.Maximize }, { 2, WindowButtons.Minimize } };
 
-            Point firstButtonLocation = new Point(ClientRectangle.Width - borderWidth - 25, borderWidth);
-            int lastDrawedButtonPosition = firstButtonLocation.X - 25;
+            Point firstButtonLocation = new Point(ClientRectangle.Width - borderWidth - WinButton.Width, borderWidth);
+            int lastDrawedButtonPosition = firstButtonLocation.X - WinButton.Width;
 
             MetroFormButton firstButton = null;
 
@@ -792,7 +794,7 @@ namespace MetroFramework.Forms
                     if (firstButton == null || !buttonExists) continue;
 
                     windowButtonList[button.Value].Location = new Point(lastDrawedButtonPosition, borderWidth);
-                    lastDrawedButtonPosition = lastDrawedButtonPosition - 25;
+                    lastDrawedButtonPosition = lastDrawedButtonPosition - WinButton.Width;
                 }
             }
 
